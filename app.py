@@ -1,8 +1,8 @@
-from flask import Flask,request, json, jsonify, render_template
+from flask import Flask, request, json, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_simple import JWTManager,create_jwt,get_jwt_identity,jwt_required
 from datetime import datetime
-from sqlalchemy import and_ ,desc
+from sqlalchemy import desc
 import os
 import re 
 
@@ -19,7 +19,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"+ os.path.join(
     basedir, "db.sqlite"
 )
 
-app.config["SQLALCHEMY_TRACK_MODIFICAIONS"] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['JWT_SECRET_KEY'] = 'edyst-secret'
 app.config['JSON_SORT_KEYS'] = False    
 
@@ -315,4 +315,4 @@ def get_review(id):
 
 if __name__ == "__main__":
     db.create_all()
-app.run(host="localhost", port=8000,debug=True)
+    app.run(host="localhost", port=8000,debug=True)
