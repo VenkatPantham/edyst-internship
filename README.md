@@ -7,4 +7,4 @@ Steps to Launch the Application
 1.Clone this Repo <br />
 2.Move to the directory <br />
 3.Run pip install -r requirements.txt (Python 2), or pip3 install -r requirements.txt (Python 3) <br />
-4.python app.py(Python 2), or python3 app.py(Python 3) <br />
+4.Run python app.py(Python 2), or python3 app.py(Python 3) <br />
