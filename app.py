@@ -167,7 +167,16 @@ def edit_restaurant(id):
             elif request.method=='DELETE':
                 db.session.delete(restaurant)
                 db.session.commit()
-                return('Restaurant is successfully deleted'),204
+                restaurantdata={
+                    'restaurant':{
+                        'id':restaurant.id,
+                        'name':restaurant.name,
+                        'description':restaurant.description,
+                        'createdAt':restaurant.createdAt,
+                        'updatedAt':restaurant.updatedAt,
+                    }
+                }
+                return jsonify(restaurantdata),200
         else:
             return('Only Admin can Edit/Delete the Restaurant'),403
     else:
@@ -251,12 +260,13 @@ def add_review(id):
 @app.route('/api/v1/restaurant/<resId>/review/<revId>',methods=['PATCH','DELETE'])
 @jwt_required
 def edit_review(resId,revId):
-    if(Restaurant.query.filter(Restaurant.id==resId).count()>0):
+    restaurant=Restaurant.query.filter(Restaurant.id==resId).first()
+    if(restaurant):
         review=Review.query.filter(Review.id==revId).first()
         if(review):
             email=get_jwt_identity()
             user=User.query.filter(User.email==email).first()
-            if(user.id==review.reviewerId):
+            if(user.id==review.reviewerId and restaurant.id==review.restaurantId):
                 if request.method=='PATCH':
                     data=request.get_json()
                     review.review=data['review']['review']
@@ -277,9 +287,19 @@ def edit_review(resId,revId):
                 elif request.method=='DELETE':
                     db.session.delete(review)
                     db.session.commit()
-                    return('Review is successfully deleted'),204
+                    reviewdata={
+                        "review":{
+                            "id":review.id,
+                            "restaurantId":review.restaurantId,
+                            "reviewerId":review.reviewerId,
+                            "review":review.review,
+                            "createdAt":review.createdAt,
+                            "updatedAt":review.updatedAt
+                        }
+                    }
+                    return jsonify(reviewdata),200
             else:
-                return('You cannot edit this Review'),403
+                return('You cannot Edit/Delete this Review'),403
         else:
             return('No Review found with that ID'),404
     else:
