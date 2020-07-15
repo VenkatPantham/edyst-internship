@@ -1,0 +1,863 @@
+{
+	"info": {
+		"_postman_id": "cde88f12-53bc-4a8c-9bb6-b2c39426dca2",
+		"name": "Restaurants",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":{\n        \"email\":\"venkat@edyst.com\",\n        \"password\":\"password\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Users Signup",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\":{\n        \"email\":\"venkat@edyst.com\",\n        \"password\":\"password\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "133"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:41:13 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"email\": \"venkat@edyst.com\",\n        \"password\": \"$2b$12$6VIOud9NZ2F9lNwSVaSbGOUzzt.5NSng5tIPv906bGk1qi4AFVZTi\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Users Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":{\n        \"email\":\"venkat@edyst.com\",\n        \"password\":\"password\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/auth/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Users Signin",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\":{\n        \"email\":\"venkat@edyst.com\",\n        \"password\":\"password\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/auth/signin",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "254"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:42:10 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"email\": \"venkat@edyst.com\",\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTMzMzAsImlhdCI6MTU5NDgwOTczMCwibmJmIjoxNTk0ODA5NzMwLCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0.pQt-YOdp2MUGaLtAbcvVNpPOeYLHZs36frRG8ROZoAE\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Adding Restaurants",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTI5NDcsImlhdCI6MTU5NDgwOTM0NywibmJmIjoxNTk0ODA5MzQ3LCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0._LZhigORRuA558hseulLBpHwupXfqF6b14uKS0I0J-g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurant\":{\n        \"name\":\"Sai Ram Parlour\",\n        \"description\":\"Restaurant\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Adding Restaurants",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant\":{\n        \"name\":\"Sai Ram Parlour\",\n        \"description\":\"Restaurant\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "206"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:42:48 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"restaurant\": {\n        \"id\": 1,\n        \"name\": \"Sai Ram Parlour\",\n        \"description\": \"Restaurant\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Adding Reviews",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTMzMzAsImlhdCI6MTU5NDgwOTczMCwibmJmIjoxNTk0ODA5NzMwLCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0.pQt-YOdp2MUGaLtAbcvVNpPOeYLHZs36frRG8ROZoAE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"review\":{\n        \"review\":\"Bad\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant/2/review",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant",
+						"2",
+						"review"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Adding Reviews",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"review\":{\n        \"review\":\"Very Good\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant/1/review",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant",
+								"1",
+								"review"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "210"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:43:43 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"review\": {\n        \"id\": 1,\n        \"restaurantId\": 1,\n        \"reviewerId\": 1,\n        \"review\": \"Very Good\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Listing all Restaurants",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Listing all Restaurants",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "436"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:45:52 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"restaurants\": [\n        {\n            \"id\": 1,\n            \"name\": \"Sai Ram Parlour\",\n            \"description\": \"Restaurant\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Anupama Lodge\",\n            \"description\": \"Hotel and Lodge\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:13:25 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:13:25 GMT\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Listing a Restaurant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Listing a Restaurant",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "684"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:46:07 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"restaurant\": {\n        \"id\": 1,\n        \"name\": \"Sai Ram Parlour\",\n        \"description\": \"Restaurant\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\",\n        \"reviews\": [\n            {\n                \"id\": 1,\n                \"restaurantId\": 1,\n                \"reviewerId\": 1,\n                \"review\": \"Very Good\",\n                \"createdAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\",\n                \"updatedAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\"\n            },\n            {\n                \"id\": 2,\n                \"restaurantId\": 1,\n                \"reviewerId\": 1,\n                \"review\": \"Good\",\n                \"createdAt\": \"Wed, 15 Jul 2020 16:15:33 GMT\",\n                \"updatedAt\": \"Wed, 15 Jul 2020 16:15:33 GMT\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Listing all Reviews",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/v1/review",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"review"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Listing all Reviews",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8000/api/v1/review",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"review"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "863"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:46:24 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"reviews\": [\n        {\n            \"id\": 1,\n            \"restaurantId\": 1,\n            \"reviewerId\": 1,\n            \"review\": \"Not Bad\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:16:17 GMT\"\n        },\n        {\n            \"id\": 2,\n            \"restaurantId\": 1,\n            \"reviewerId\": 1,\n            \"review\": \"Good\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:15:33 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:15:33 GMT\"\n        },\n        {\n            \"id\": 3,\n            \"restaurantId\": 2,\n            \"reviewerId\": 1,\n            \"review\": \"Very Bad\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:15:42 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:15:42 GMT\"\n        },\n        {\n            \"id\": 4,\n            \"restaurantId\": 2,\n            \"reviewerId\": 1,\n            \"review\": \"Bad\",\n            \"createdAt\": \"Wed, 15 Jul 2020 16:15:47 GMT\",\n            \"updatedAt\": \"Wed, 15 Jul 2020 16:15:47 GMT\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Listing a Review",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTAyOTAsImlhdCI6MTU5NDgwNjY5MCwibmJmIjoxNTk0ODA2NjkwLCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0.LM4r4CfZp04SapINR4Xoj-9_OG4JuXLaXzSIeTGCE68",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurant\":{\n        \"name\":\"Anupama Hotel\",\n        \"description\":\"Lodge and Hotel\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/review/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"review",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Listing a Review",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant\":{\n        \"name\":\"Anupama Hotel\",\n        \"description\":\"Lodge and Hotel\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/review/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"review",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "208"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:46:49 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"review\": {\n        \"id\": 1,\n        \"restaurantId\": 1,\n        \"reviewerId\": 1,\n        \"review\": \"Not Bad\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:16:17 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Editing a Restaurant",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTIzOTMsImlhdCI6MTU5NDgwODc5MywibmJmIjoxNTk0ODA4NzkzLCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0.Yut2Wf3egw6oc4sEfTPt9u9zfrPbyG5cbhipa_GtP8A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"restaurant\":{\n        \"name\":\"Sri Ram Parlour\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Editing a Restaurant",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurant\":{\n        \"name\":\"Sri Ram Parlour\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant",
+								"1"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "206"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:47:26 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"restaurant\": {\n        \"id\": 1,\n        \"name\": \"Sri Ram Parlour\",\n        \"description\": \"Restaurant\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:12:48 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:17:26 GMT\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Editing a Review",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTQ4MTIzOTMsImlhdCI6MTU5NDgwODc5MywibmJmIjoxNTk0ODA4NzkzLCJzdWIiOiJ2ZW5rYXRAZWR5c3QuY29tIn0.Yut2Wf3egw6oc4sEfTPt9u9zfrPbyG5cbhipa_GtP8A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"review\":{\n        \"review\":\"Not Bad\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/restaurant/1/review/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"restaurant",
+						"1",
+						"review",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Editing a Review",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"review\":{\n        \"review\":\"Not Bad\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/restaurant/1/review/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"restaurant",
+								"1",
+								"review",
+								"1"
+							]
+						}
+					},
+					"status": "CREATED",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "208"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/1.0.1 Python/3.8.2"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Jul 2020 10:46:17 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"review\": {\n        \"id\": 1,\n        \"restaurantId\": 1,\n        \"reviewerId\": 1,\n        \"review\": \"Not Bad\",\n        \"createdAt\": \"Wed, 15 Jul 2020 16:13:43 GMT\",\n        \"updatedAt\": \"Wed, 15 Jul 2020 16:16:17 GMT\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}

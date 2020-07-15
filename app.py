@@ -1,5 +1,6 @@
 from flask import Flask, request, json, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from flask_jwt_simple import JWTManager,create_jwt,get_jwt_identity,jwt_required
 from datetime import datetime
 from sqlalchemy import desc
@@ -25,16 +26,22 @@ app.config['JSON_SORT_KEYS'] = False
 
 # Initializing Database
 db = SQLAlchemy(app)
-jwt=JWTManager(app)
+jwt = JWTManager(app)
+bcrypt = Bcrypt(app)
 
 class User(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     email=db.Column(db.String,unique=True,nullable=False)
-    password=db.Column(db.String,nullable=False)
+    password_hash=db.Column(db.String,nullable=False)
 
-    def __init__(self,email,password):
+    def __init__(self,email):
         self.email=email
-        self.password=password
+
+    def set_password(self,password):
+        self.password_hash=bcrypt.generate_password_hash(password).decode('utf-8')
+    
+    def check_password(self,password):
+        return bcrypt.check_password_hash(self.password_hash,password)
 
 class Restaurant(db.Model):
     id=db.Column(db.Integer,primary_key=True)
@@ -52,10 +59,11 @@ class Restaurant(db.Model):
 class Review(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     restaurantId=db.Column(db.Integer,nullable=False)
-    reviewerId=db.Column(db.Integer,nullable=False)
+    reviewerId=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     review=db.Column(db.String,nullable=False)
     createdAt=db.Column(db.DateTime)
     updatedAt=db.Column(db.DateTime)
+    user=db.relationship('User',backref=db.backref('user',uselist=False))
 
     def __init__(self,restaurantId,reviewerId,review,createdAt,updatedAt):
         self.restaurantId=restaurantId
@@ -69,14 +77,16 @@ class Review(db.Model):
 def signup():
     registration=request.get_json()
     email=registration['user']['email']
+    user=User(email)
     password=registration['user']['password']
-    db.session.add(User(email,password))
+    user.set_password(password)
+    db.session.add(user)
     db.session.commit()
     data=User.query.filter(User.email==email).first()
     user={
         "user":{
             "email":data.email,
-            "password":data.password,
+            "password":data.password_hash,
         }
     }
     return jsonify(user),200
@@ -88,7 +98,7 @@ def login():
     password=login['user']['password']
     if(User.query.filter(User.email==email).first()):
         data=User.query.filter(User.email==email).first()
-        if(User.query.filter(data.password==password).first()):
+        if(data.check_password(password)):
             token=create_jwt(identity=email)
             userdata={
                 "user":{
@@ -131,11 +141,11 @@ def add_restaurant():
 @app.route('/api/v1/restaurant/<id>',methods=['PATCH','DELETE'])
 @jwt_required
 def edit_restaurant(id):
-    if(Restaurant.query.filter(Restaurant.id==id).count()>0):
+    restaurant=Restaurant.query.filter(Restaurant.id==id).first()
+    if(restaurant):
         user=get_jwt_identity()
         if(re.search(regex,user)):
             if request.method=='PATCH':
-                restaurant=Restaurant.query.filter(Restaurant.id==id).first()
                 data=request.json['restaurant']
                 if 'name' in data:
                     restaurant.name=data['name']
@@ -143,22 +153,21 @@ def edit_restaurant(id):
                     restaurant.description=data['description']
                 restaurant.updatedAt=datetime.now()
                 db.session.commit()
-                restaurant=Restaurant.query.filter(Restaurant.id==id).first()
+                data=Restaurant.query.filter(Restaurant.id==id).first()
                 restaurantdata={
                     'restaurant':{
-                        'id':restaurant.id,
-                        'name':restaurant.name,
-                        'description':restaurant.description,
-                        'createdAt':restaurant.createdAt,
-                        'updatedAt':restaurant.updatedAt,
+                        'id':data.id,
+                        'name':data.name,
+                        'description':data.description,
+                        'createdAt':data.createdAt,
+                        'updatedAt':data.updatedAt,
                     }
                 }
                 return jsonify(restaurantdata),201
             elif request.method=='DELETE':
-                restaurant=Restaurant.query.filter(Restaurant.id==id).first()
                 db.session.delete(restaurant)
                 db.session.commit()
-                return jsonify(),204
+                return('Restaurant is successfully deleted'),204
         else:
             return('Only Admin can Edit/Delete the Restaurant'),403
     else:
@@ -183,8 +192,8 @@ def get_restaurants():
 
 @app.route('/api/v1/restaurant/<id>',methods=['GET'])
 def get_restaurant(id):
-    if(Restaurant.query.filter(Restaurant.id==id).count()>0):
-        restaurant=Restaurant.query.filter(Restaurant.id==id).first()
+    restaurant=Restaurant.query.filter(Restaurant.id==id).first()
+    if(restaurant):
         reviews=Review.query.filter(Review.restaurantId==id).all()
         restaurantdata={
             'restaurant':{
@@ -243,10 +252,10 @@ def add_review(id):
 @jwt_required
 def edit_review(resId,revId):
     if(Restaurant.query.filter(Restaurant.id==resId).count()>0):
-        if(Review.query.filter(Review.id==revId).count()>0):
+        review=Review.query.filter(Review.id==revId).first()
+        if(review):
             email=get_jwt_identity()
             user=User.query.filter(User.email==email).first()
-            review=Review.query.filter(Review.id==revId).first()
             if(user.id==review.reviewerId):
                 if request.method=='PATCH':
                     data=request.get_json()
@@ -266,10 +275,9 @@ def edit_review(resId,revId):
                     }
                     return jsonify(reviewdata),201
                 elif request.method=='DELETE':
-                    data=Review.query.filter(Review.id==revId).first()
-                    db.session.delete(data)
+                    db.session.delete(review)
                     db.session.commit()
-                    return jsonify(),204
+                    return('Review is successfully deleted'),204
             else:
                 return('You cannot edit this Review'),403
         else:
@@ -297,8 +305,8 @@ def get_reviews():
 
 @app.route('/api/v1/review/<id>',methods=['GET'])
 def get_review(id):
-    if(Review.query.filter(Review.id==id).count()>0):
-        review=Review.query.filter(Review.id==id).first()
+    review=Review.query.filter(Review.id==id).first()
+    if(review):
         reviewdata={
             'review':{
                 'id':review.id,
