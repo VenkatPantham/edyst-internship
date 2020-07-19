@@ -1,77 +1,10 @@
-from flask import Flask, request, json, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
-from flask_jwt_simple import JWTManager,create_jwt,get_jwt_identity,jwt_required
+from flask import request, jsonify
+from flask_jwt_simple import create_jwt, get_jwt_identity, jwt_required
 from datetime import datetime
 from sqlalchemy import desc
-import os
-import re 
-
-# Initializing App
-app = Flask(__name__)
-
-# for validating an Admin 
-regex = '^[a-z0-9]+[\._]?[a-z0-9]+@edyst.com$'
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-# Database
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///"+ os.path.join(
-    basedir, "db.sqlite"
-)
-
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config['JWT_SECRET_KEY'] = 'edyst-secret'
-app.config['JSON_SORT_KEYS'] = False    
-
-# Initializing Database
-db = SQLAlchemy(app)
-jwt = JWTManager(app)
-bcrypt = Bcrypt(app)
-
-class User(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    email=db.Column(db.String,unique=True,nullable=False)
-    password_hash=db.Column(db.String,nullable=False)
-
-    def __init__(self,email):
-        self.email=email
-
-    def set_password(self,password):
-        self.password_hash=bcrypt.generate_password_hash(password).decode('utf-8')
-    
-    def check_password(self,password):
-        return bcrypt.check_password_hash(self.password_hash,password)
-
-class Restaurant(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String,unique=True,nullable=False)
-    description=db.Column(db.String,nullable=False)    
-    createdAt=db.Column(db.DateTime)
-    updatedAt=db.Column(db.DateTime)
-
-    def __init__(self,name,description,createdAt,updatedAt):
-        self.name=name
-        self.description=description
-        self.createdAt=createdAt
-        self.updatedAt=updatedAt
-
-class Review(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    restaurantId=db.Column(db.Integer,nullable=False)
-    reviewerId=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-    review=db.Column(db.String,nullable=False)
-    createdAt=db.Column(db.DateTime)
-    updatedAt=db.Column(db.DateTime)
-    user=db.relationship('User',backref=db.backref('user',uselist=False))
-
-    def __init__(self,restaurantId,reviewerId,review,createdAt,updatedAt):
-        self.restaurantId=restaurantId
-        self.reviewerId=reviewerId
-        self.review=review
-        self.createdAt=createdAt
-        self.updatedAt=updatedAt
-
+from app import app, db, regex
+from app.models import User, Restaurant, Review
+import re
 
 @app.route('/api/v1/auth/signup',methods=['POST'])
 def signup():
@@ -340,7 +273,3 @@ def get_review(id):
         return jsonify(reviewdata),200
     else:
         return('No Review found with that ID'),404
-
-if __name__ == "__main__":
-    db.create_all()
-    app.run(host="localhost", port=8000,debug=True)
